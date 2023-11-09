@@ -2,10 +2,6 @@ import { Prisma } from "@prisma/client";
 import { ApolloError } from "apollo-server-errors";
 import server from "../server";
 
-/**
- *
- * @param error
- */
 export const errorHandler = (error: any) => {
   let output = { message: "Something Went Wrong", code: "UNKNOWN_ERR" };
 

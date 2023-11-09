@@ -1,5 +1,7 @@
-// Running the Express GraphQL server which would be imported from the ./server.ts
 import server from "./server";
+/**
+ * Running the Express GraphQL server which would be imported from the ./server.ts
+ */
 
 const PORT = process.env.PORT;
 
