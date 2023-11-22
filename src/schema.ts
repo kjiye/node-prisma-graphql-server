@@ -14,12 +14,12 @@ const schema = gql`
     role: RoleType!
   }
   type Query {
-    getUsers: [User]
-    getUser(id: Int): User
+    getUsers(id: ID, userName: String, role: RoleType): [User]
+    getUser(id: ID!): User
   }
   type Mutation {
-    createUser(userName: String!, role: String!): User!
-    updateUser(id: ID!, userName: String, role: String): User!
+    createUser(userName: String!, role: RoleType): User!
+    updateUser(id: ID!, userName: String, role: RoleType): User!
     deleteUser(id: ID!): ID!
   }
 `;

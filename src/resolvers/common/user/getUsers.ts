@@ -1,31 +1,25 @@
 import { RoleType } from "@prisma/client";
 import prismaClient from "../../../database";
+import { errorHandler } from "../../../utils/error";
 
 export const getUsers = async (
-  id?: number,
-  userName?: string,
-  role?: RoleType
+  _: undefined,
+  args: {
+    id?: string | number;
+    userName?: string;
+    role?: RoleType;
+  }
 ) => {
-  let where = {};
-  if (id) {
-    where = {
-      ...where,
-      id,
-    };
+  try {
+    const { id, userName, role } = args;
+    return await prismaClient.user.findMany({
+      where: {
+        id: id ? Number(id) : undefined,
+        userName: userName ?? userName,
+        role: role ?? role,
+      },
+    });
+  } catch (error: any) {
+    return errorHandler(error);
   }
-  if (userName) {
-    where = {
-      ...where,
-      userName,
-    };
-  }
-  if (role) {
-    where = {
-      ...where,
-      role,
-    };
-  }
-  return await prismaClient.user.findMany({
-    where,
-  });
 };

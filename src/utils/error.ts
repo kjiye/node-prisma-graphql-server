@@ -3,6 +3,7 @@ import { ApolloError } from "apollo-server-errors";
 import server from "../server";
 
 export const errorHandler = (error: any) => {
+  console.log(error);
   let output = { message: "Something Went Wrong", code: "UNKNOWN_ERR" };
 
   if (error instanceof Prisma.PrismaClientRustPanicError) {

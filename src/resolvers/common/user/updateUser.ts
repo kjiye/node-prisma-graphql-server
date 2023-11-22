@@ -1,18 +1,23 @@
 import { RoleType } from "@prisma/client";
 import prismaClient from "../../../database";
+import { errorHandler } from "../../../utils/error";
 
 export const updateUser = async (
-  id: number,
-  userName: string,
-  role: RoleType
+  _: undefined,
+  args: { id: string | number; userName: string; role?: RoleType }
 ) => {
-  return await prismaClient.user.update({
-    where: {
-      id,
-    },
-    data: {
-      userName,
-      role,
-    },
-  });
+  try {
+    const { id, userName, role } = args;
+    return await prismaClient.user.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        userName,
+        role: role ?? role,
+      },
+    });
+  } catch (error: any) {
+    return errorHandler(error);
+  }
 };
